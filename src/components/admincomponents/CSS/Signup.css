@@ -1,3 +1,7 @@
-.formContainer{
+.formContainer {
     transform: translate(20px, 100px);
+}
+
+.signInFormContainer {
+    transform: translate(20px, 200px);
 }
