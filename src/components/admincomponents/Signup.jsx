@@ -1,10 +1,10 @@
-import { Box, TextField, Button, ThemeProvider, createTheme, InputAdornment, IconButton } from '@mui/material'
+import { Box, TextField, Typography, Button, ThemeProvider, createTheme, InputAdornment, IconButton } from '@mui/material'
 import React, { useState } from 'react';
 import './CSS/Signup.css'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Signup = () => {
 
@@ -44,6 +44,8 @@ const Signup = () => {
     });
 
     const [showPassword, setShowPassword] = useState(false);
+    const [userAddedConfirmation, setUserAddedConfirmation] = useState(false);
+    const navigate = useNavigate();
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     const handleMouseDownPassword = (event) => {
@@ -60,13 +62,19 @@ const Signup = () => {
     const { register, handleSubmit, formState: { errors } } = useForm({
 
     });
+
     const submit = async (formData) => {
         const { data } = await axios.post('http://127.0.0.1:8088/admin/addAdmin', formData);
-        console.log(data);
+        setUserAddedConfirmation((prev) => !prev);
+        setTimeout(() => {
+            navigate('/adminSignin');
+        }, 5000);
     }
+
     return (
         <ThemeProvider theme={theme}>
             <Box component='main' sx={{ backgroundImage: `url(Images/MainHome.jpg)`, backgroundSize: 'cover', height: '100vh' }}>
+                <Typography sx={{ display: 'flex', justifyContent: 'center'}}>{userAddedConfirmation && <Button variant='contained' color='success' sx={{mt:2}}>User added successfully</Button>}</Typography>
                 <Box className='formContainer' component='form' onSubmit={handleSubmit(submit)} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '300px' }}>
                     {/* username */}
                     <TextField size='small' fullWidth variant='outlined' color='secondary' sx={{ my: 1 }} label='username'
@@ -124,7 +132,7 @@ const Signup = () => {
                         {...register('mobile', {})} />
 
                     {/* SignUp button */}
-                    <Box sx={{display:'flex', justifyContent:'space-evenly', width: '100%'}}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-evenly', width: '100%' }}>
                         <Button variant='contained' type='submit'>Sign up</Button>
                         <Button component={Link} to='/adminHome' variant='contained' color='warning'>Cancel</Button>
                     </Box>

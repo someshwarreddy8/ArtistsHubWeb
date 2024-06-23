@@ -10,7 +10,7 @@ const AdminHome = () => {
     }}>
       <Box sx={{width:'400px', display:'flex', justifyContent:'space-evenly'}}>
         <Button component={Link} to='/adminSignup' variant='contained'>Sign up</Button>
-        <Button component={Link} to='' variant='contained' color='success'>Sign in</Button>
+        <Button component={Link} to='/adminSignin' variant='contained' color='success'>Sign in</Button>
         <Button component={Link} to='/' variant='contained' color='warning'>Cancel</Button>
       </Box> 
     </Box>
