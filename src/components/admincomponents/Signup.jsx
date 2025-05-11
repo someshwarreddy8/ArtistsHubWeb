@@ -61,7 +61,7 @@ const Signup = () => {
 
     });
     const submit = async (formData) => {
-        const { data } = await axios.post('http://127.0.0.1:8088/admin/addAdmin', formData);
+        const { data } = await axios.post('http://174.129.59.128:8088/admin/addAdmin', formData);
         console.log(data);
     }
     return (
